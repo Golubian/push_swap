@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:54:00 by gachalif          #+#    #+#             */
-/*   Updated: 2024/02/28 15:45:24 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:22:02 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_stack	*stack_new(int content)
 	if (!new)
 		return (0);
 	new->content = content;
-	new->next = 0;
+	new->next = NULL;
 	return (new);
 }
 
@@ -44,8 +44,8 @@ void	stack_addfront(t_stack **head, t_stack *to_add)
 	t_stack	*next;
 
 	next = *head;
-	*head = to_add;
 	to_add->next = next;
+	*head = to_add;
 }
 
 void	stack_put(t_stack **from, t_stack **to)
@@ -54,13 +54,10 @@ void	stack_put(t_stack **from, t_stack **to)
 
 	if (!*from)
 		return ;
-	temp = (*from);
-	if ((*from)->next)
-		(*from) = (*from)->next;
-	else
-		(*from) = 0;
-	temp->next = 0;
-	stack_addfront(to, temp);
+	temp = (*from)->next;
+	(*from)->next = 0;
+	stack_addfront(to, *from);
+	*from = temp;
 }
 
 void	stack_swap(t_stack **head, t_stack	*to_swap_a, t_stack	*to_swap_b)
@@ -103,9 +100,9 @@ void	stack_rot(t_stack **head)
 	while (current->next)
 		current = current->next;
 	temp = *head;
-	*head = (*head)->next;
-	current->next = temp;
+	*head = temp->next;
 	temp->next = NULL;
+	current->next = temp;
 }
 
 void	stack_print(t_stack *head)

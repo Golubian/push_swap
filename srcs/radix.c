@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:40:38 by gachalif          #+#    #+#             */
-/*   Updated: 2024/02/28 15:36:45 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:31:54 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,6 @@ static int	is_sorted(t_stack	*stack, t_stack	*stack_2)
 	return (1);
 }
 
-// void	radix_pass(t_stack **stack, size_t	digit)
-// {
-// 	t_stack	*cur;
-
-// 	while (!is_sorted(*stack, digit))
-// 	{
-// 		cur = *stack;
-// 		while (cur->next)
-// 		{
-// 			if (get_digit(cur->content, digit) > \
-// 			get_digit(cur->next->content, digit))
-// 			{
-// 				printf("sa ");
-// 				stack_swap(stack, cur, cur->next);
-// 				break ;
-// 			}
-// 			cur = cur->next;
-// 			printf("ra ");
-// 		}
-// 	}
-// 	if (!is_sorted(*stack, 0) && digit < 10)
-// 		radix_pass(stack, digit + 1);
-// 	return ;
-// }
-
 int	contains_digit(t_stack *stack, int depth, int digit)
 {
 	while (stack)
@@ -103,14 +78,14 @@ void	radix_pass_even(t_stack **s_a, t_stack	**s_b, size_t	depth)
 	{
 		while (contains_digit(*s_a, depth, i) && !is_sorted(*s_a, *s_b))
 		{
-			if (get_digit((*s_a)->content, depth) == i)
+			while (*s_a && get_digit((*s_a)->content, depth) == i)
 			{
-				printf("pa ");
+				printf("pb\n");
 				stack_put(s_a, s_b);
 			}
-			else
+			if (*s_a && contains_digit(*s_a, depth, i))
 			{
-				printf("ra ");
+				printf("ra\n");
 				stack_rot(s_a);
 			}
 		}
