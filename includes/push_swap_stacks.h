@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:44:28 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 13:52:09 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:46:20 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_stack
 }	t_stack;
 
 t_list	*stack_new(int content);
+int		stack_size(t_stack *stack);
 void	stack_addback(t_stack *stack, t_list *to_add);
 void	stack_rot(t_stack *stack);
 void	stack_rrot(t_stack *stack);
