@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap_inputs.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 13:42:00 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 16:15:34 by gachalif         ###   ########.fr       */
+/*   Created: 2024/03/05 16:12:57 by gachalif          #+#    #+#             */
+/*   Updated: 2024/03/05 16:15:20 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-//stacks.c
+#ifndef PUSH_SWAP_INPUTS_H
+# define PUSH_SWAP_INPUTS_H
+
 # include "push_swap_stacks.h"
-# include "push_swap_sort.h"
-# include "push_swap_moves.h"
-# include "push_swap_inputs.h"
 
-# include <stdio.h>
-# include <stdlib.h>
+int		single_input_is_valid(char *input);
+int		multi_input_is_valid(int elems, char **input);
 
-//libs
-char	**ft_split(char const *s, char c);
-int		ft_atoi(const char *nptr);
+t_stack	*get_stack_from_input(char *input);
+t_stack	*get_stack_from_inputs(int elems, char **input);
+
+int		check_valid_ints(char **split_input);
 
 #endif

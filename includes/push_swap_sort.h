@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap_sort.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 13:42:00 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 16:15:34 by gachalif         ###   ########.fr       */
+/*   Created: 2024/03/05 16:11:22 by gachalif          #+#    #+#             */
+/*   Updated: 2024/03/05 16:12:18 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-//stacks.c
+#ifndef PUSH_SWAP_SORT_H
+# define PUSH_SWAP_SORT_H
+
 # include "push_swap_stacks.h"
-# include "push_swap_sort.h"
-# include "push_swap_moves.h"
-# include "push_swap_inputs.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-
-//libs
-char	**ft_split(char const *s, char c);
-int		ft_atoi(const char *nptr);
+int	get_at_pos(t_stack *stack, int pos);
+int	get_median(t_stack *stack);
+int	get_pos_from_perc(t_list *stack, float perc);
 
 #endif

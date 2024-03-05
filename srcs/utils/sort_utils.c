@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:36:31 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 14:55:12 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:10:16 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,22 @@ int	get_median(t_stack *stack)
 	int	to_find;
 
 	to_find = stack_len(stack) / 2;
+	return (get_at_pos(stack, to_find));
+}
+
+/*
+	Returns the floored position at percentage in the array.
+	Ex:
+		stack = [-12 3 27 4]
+		get_pos_from_perc(stack, 0.75) -> 3
+		get_pos_from_perc(stack, 0.5)  -> 2
+		get_pos_from_perc(stack, 0.25) -> 1
+		get_pos_from_perc(stack, 0.15) -> 0
+	
+	Limits:
+		0 >= perc < 1
+*/
+int	get_pos_from_perc(t_list *stack, float perc)
+{
+	return ((int)(perc * (float)stack_size(stack)));
 }
