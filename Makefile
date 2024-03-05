@@ -6,7 +6,7 @@
 #    By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/27 13:40:15 by gachalif          #+#    #+#              #
-#    Updated: 2024/03/05 14:35:15 by gachalif         ###   ########.fr        #
+#    Updated: 2024/03/05 16:21:11 by gachalif         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,13 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror $(INCLUDES)
 
 SRCS_DIR = srcs
-SRCS = 	$(SRCS_DIR)/main.c \
-		$(SRCS_DIR)/input_validity.c \
-		$(SRCS_DIR)/input_utils.c \
+SRCS =\
+		$(SRCS_DIR)/main.c \
+		$(SRCS_DIR)/input.c \
+\
+		$(SRCS_DIR)/utils/input_utils.c \
+		$(SRCS_DIR)/utils/sort_utils.c \
+\
 		$(SRCS_DIR)/moves/pa.c \
 		$(SRCS_DIR)/moves/pb.c \
 		$(SRCS_DIR)/moves/ra.c \
@@ -30,6 +34,7 @@ SRCS = 	$(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/moves/sa.c \
 		$(SRCS_DIR)/moves/sb.c \
 		$(SRCS_DIR)/moves/ss.c \
+\
 		$(SRCS_DIR)/libs/stacks.c \
 		$(SRCS_DIR)/libs/stacks_2.c \
 		$(SRCS_DIR)/libs/ft_split.c \

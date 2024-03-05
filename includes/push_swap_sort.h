@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:11:22 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 16:12:18 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:24:30 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 
 int	get_at_pos(t_stack *stack, int pos);
 int	get_median(t_stack *stack);
-int	get_pos_from_perc(t_list *stack, float perc);
+int	get_pos_from_perc(t_stack *stack, float perc);
 
 #endif

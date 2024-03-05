@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:12:57 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 16:15:20 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:23:28 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ t_stack	*get_stack_from_input(char *input);
 t_stack	*get_stack_from_inputs(int elems, char **input);
 
 int		check_valid_ints(char **split_input);
+int		fits_in_int(const char *nptr);
 
 #endif

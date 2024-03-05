@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:36:31 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 16:10:16 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:25:22 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	get_at_pos(t_stack *stack, int pos)
 			return (current->content);
 		current = current->next;
 	}
-	return (NULL);
+	return (-1);
 }
 
 /*
@@ -58,7 +58,7 @@ int	get_median(t_stack *stack)
 {
 	int	to_find;
 
-	to_find = stack_len(stack) / 2;
+	to_find = stack_size(stack) / 2;
 	return (get_at_pos(stack, to_find));
 }
 
@@ -74,7 +74,7 @@ int	get_median(t_stack *stack)
 	Limits:
 		0 >= perc < 1
 */
-int	get_pos_from_perc(t_list *stack, float perc)
+int	get_pos_from_perc(t_stack *stack, float perc)
 {
 	return ((int)(perc * (float)stack_size(stack)));
 }
