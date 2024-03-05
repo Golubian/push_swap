@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:41:48 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 13:51:43 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:22:09 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,14 @@ void	stack_rrot(t_stack *stack)
 
 void	stack_swap(t_stack *stack)
 {
-	
+	t_list	*to_first;
+	t_list	*to_next;
+
+	if (!stack->head || !stack->head->next)
+		return ;
+	to_next = stack->head;
+	to_first = stack->head->next;
+	to_next->next = to_first->next;
+	to_first->next = to_next;
+	stack->head = to_first;
 }
