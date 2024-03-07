@@ -6,11 +6,29 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:41:13 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 14:20:14 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:12:17 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	stack_print(t_stack *stack)
+{
+	t_list	*current;
+
+	printf("Stack: ");
+	if (!stack)
+		return (printf("<NULL>\n"));
+	current = stack->head;
+	printf("%i ", current->content);
+	while (current->next)
+	{
+		current = current->next;
+		printf(" -> %i", current->content);
+	}
+	printf(" -> <NULL>\n");
+	return (0);
+}
 
 //TODO: ADD CHECK DUPLICATES
 int	main(int argc, char **argv)
@@ -33,9 +51,25 @@ int	main(int argc, char **argv)
 			return (printf("ERROR"), 1);
 		a = get_stack_from_inputs(argc, argv);
 	}
-	while (b->head)
+	float	offset = 0;
+	int		median = get_median(a);
+	while (offset < .5)
 	{
-		b->head = b->head->next;
-		printf("%s", "pa\n");
+		offset += .075;
+		if (offset < .5)
+			put_fork(a, b, offset, median);
 	}
+	while (a->head)
+	{
+		if (a->head->content > median)
+		{
+			pb(a, b);
+			rb(b);
+		}
+		else
+			pb(a, b);
+	}
+	finalize_sort(a, b);
+	stack_free(a);
+	stack_free(b);
 }

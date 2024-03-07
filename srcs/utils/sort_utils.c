@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:36:31 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 16:25:22 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:18:45 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	get_at_pos(t_stack *stack, int pos)
 	int		below;
 
 	current = stack->head;
-	while (current->next)
+	while (current)
 	{
 		below = 0;
 		list = stack->head;
-		while (list->next)
+		while (list)
 		{
-			if (list->content < current->content)
+			if (list->content <= current->content && list != current)
 				below++;
 			list = list->next;
 		}
@@ -77,4 +77,54 @@ int	get_median(t_stack *stack)
 int	get_pos_from_perc(t_stack *stack, float perc)
 {
 	return ((int)(perc * (float)stack_size(stack)));
+}
+
+/*
+	Returns 1 if the stack still has elements between the max and min content.
+	Else returns 0.
+*/
+int	stack_contains_fork(t_stack *stack, int min, int max)
+{
+	t_list	*current;
+
+	current = stack->head;
+	while (current->next)
+	{
+		if (current->content >= min && current->content <= max)
+			return (1);
+		current = current->next;
+	}
+	return (0);
+}
+
+/*
+	Returns the relative position to the closest fork element in the stack.
+	Negative values means backwards, positive means forwards.
+*/
+int	get_closest_fork_pos(t_stack *stack, int min, int max)
+{
+	t_list	*current;
+	int		r_moves;
+	int		rr_moves;
+	int		r_moves_locked;
+
+	current = stack->head;
+	if (current->content >= min && current->content <= max)
+		return (0);
+	r_moves = 0;
+	rr_moves = stack_size(stack);
+	r_moves_locked = 0;
+	while (current->next)
+	{
+		if (current->content >= min && current->content <= max)
+			r_moves_locked = 1 ;
+		if (!r_moves_locked)
+			r_moves++;
+		rr_moves--;
+		current = current->next;
+	}
+	if (r_moves <= rr_moves)
+		return (r_moves);
+	else
+		return (-rr_moves);
 }
