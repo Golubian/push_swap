@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:40:50 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/04 15:28:31 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/12 09:40:23 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@ static void	free_stack(t_stack *stack)
 	free(stack);
 }
 
+static int	get_pos_in_stack(char **str_elems, int index)
+{
+	int	count;
+	int	i;
+
+	i = 0;
+	count = 0;
+	while (str_elems[i])
+	{
+		if (i != index && ft_atoi(str_elems[i]) < ft_atoi(str_elems[index]))
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 t_stack	*get_stack_from_input(char *input)
 {
 	int		i;
@@ -41,7 +57,7 @@ t_stack	*get_stack_from_input(char *input)
 	i = 0;
 	while (str_elems[i])
 	{
-		new_elem = stack_new(ft_atoi(str_elems[i]));
+		new_elem = stack_new(get_pos_in_stack(str_elems, i));
 		if (!new_elem)
 			return (free_stack(new_stack), NULL);
 		stack_addback(new_stack, new_elem);
@@ -62,7 +78,7 @@ t_stack	*get_stack_from_inputs(int elems, char **argv)
 	i = 0;
 	while (i < elems - 1)
 	{
-		new_elem = stack_new(ft_atoi((argv[i + 1])));
+		new_elem = stack_new(get_pos_in_stack(argv + 1, i));
 		if (!new_elem)
 			return (free_stack(new_stack), NULL);
 		stack_addback(new_stack, new_elem);

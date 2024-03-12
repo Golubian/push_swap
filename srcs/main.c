@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:41:13 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/07 10:12:17 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:56:58 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	stack_print(t_stack *stack)
 	return (0);
 }
 
-//TODO: ADD CHECK DUPLICATES
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
@@ -51,25 +50,10 @@ int	main(int argc, char **argv)
 			return (printf("ERROR"), 1);
 		a = get_stack_from_inputs(argc, argv);
 	}
-	float	offset = 0;
-	int		median = get_median(a);
-	while (offset < .5)
-	{
-		offset += .075;
-		if (offset < .5)
-			put_fork(a, b, offset, median);
-	}
-	while (a->head)
-	{
-		if (a->head->content > median)
-		{
-			pb(a, b);
-			rb(b);
-		}
-		else
-			pb(a, b);
-	}
-	finalize_sort(a, b);
+	if (!is_sorted(a) && stack_size(a) > 15)
+		radix_sort(a, b);
+	else if (!is_sorted(a))
+		tiny_sort(a, b);
 	stack_free(a);
 	stack_free(b);
 }

@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:28:37 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/05 16:23:38 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:52:13 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,28 @@ static int	str_is_digit(char *input)
 	return (1);
 }
 
+int	check_duplicates(char **input)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (input[i])
+	{
+		j = i;
+		while (input[j])
+		{
+			if (i != j)
+				if (ft_atoi(input[i]) == ft_atoi(input[j]))
+					return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	single_input_is_valid(char *input)
 {
 	char	**split_input;
@@ -35,7 +57,7 @@ int	single_input_is_valid(char *input)
 		return (0);
 	if (!check_valid_ints(split_input))
 		return (0);
-	return (1);
+	return (check_duplicates(split_input) == 0);
 }
 
 int	multi_input_is_valid(int elems, char **input)
@@ -51,5 +73,5 @@ int	multi_input_is_valid(int elems, char **input)
 			return (0);
 		i++;
 	}
-	return (1);
+	return (check_duplicates(input + 1) == 0);
 }

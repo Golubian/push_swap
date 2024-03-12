@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:41:48 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/06 15:11:08 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:55:35 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,27 +75,23 @@ void	stack_free(t_stack *stack)
 	free(stack);
 }
 
-int	stack_is_limit(t_stack *stack)
+t_list	*stack_min(t_stack *stack)
 {
+	t_list	*min_list;
 	t_list	*current;
-	int		max;
 	int		min;
 
-	max = -2147483648;
-	min = 2147483647;
 	current = stack->head;
+	min_list = current;
+	min = 2147483647;
 	while (current)
 	{
 		if (current->content < min)
+		{
 			min = current->content;
-		if (current->content > max)
-			max = current->content;
+			min_list = current;
+		}
 		current = current->next;
 	}
-	if (stack->head && stack->head->content >= max)
-		return (1);
-	else if (stack->head && stack->head->content <= min)
-		return (-1);
-	else
-		return (0);
+	return (min_list);
 }

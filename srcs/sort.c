@@ -6,140 +6,82 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:28:09 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/07 10:13:30 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:54:15 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//Problem is median changes, maybe save somewhere
-void	put_fork(t_stack *stack_a, t_stack *stack_b, float range, int median)
+void	radix_pass(t_stack	*from, t_stack *to, int pos)
 {
-	int	min_int;
-	int	max_int;
+	t_list	*start;
 
-	min_int = get_at_pos(stack_a, get_pos_from_perc(stack_a, .5 - range));
-	max_int = get_at_pos(stack_a, get_pos_from_perc(stack_a, .5 + range));
-	while (stack_contains_fork(stack_a, min_int, max_int))
+	start = from->head;
+	while (stack_contains_bit_unset(from, pos) \
+	&& !(is_sorted(from) && is_sorted_rev(to)))
 	{
-		if (get_closest_fork_pos(stack_a, min_int, max_int) == 0)
+		if (get_digit_at_pos(from->head->content, pos) == 0)
 		{
-			if (stack_a->head->content >= median)
-			{
-				pb(stack_a, stack_b);
-				rb(stack_b);
-			}
-			else
-				pb(stack_a, stack_b);
+			if (from->head == start)
+				start = start->next;
+			pb(from, to);
 		}
-		else if (get_closest_fork_pos(stack_a, min_int, max_int) > 0)
-			ra(stack_a);
+		else
+			ra(from);
+	}
+	while (from->head != start && !(is_sorted(from) && is_sorted_rev(to)))
+	{
+		if (get_closest_pos(from, start) > 0)
+			ra(from);
+		else
+			rra(from);
+	}
+	while (to->head)
+		pa(from, to);
+}
+
+void	radix_sort(t_stack	*stack_a, t_stack *stack_b)
+{
+	int		pos;
+
+	pos = 0;
+	while (!(stack_a->head && is_sorted(stack_a)))
+	{
+		radix_pass(stack_a, stack_b, pos);
+		pos++;
+	}
+	while (stack_b->head)
+		pa(stack_a, stack_b);
+}
+
+void	sort_3(t_stack *stack_a)
+{
+	t_list	*current;
+
+	while (!is_sorted(stack_a))
+	{
+		current = stack_a->head;
+		if (current->content > current->next->content)
+			sa(stack_a);
 		else
 			rra(stack_a);
 	}
 }
 
-int	get_closest_limit_pos(t_stack *stack, int min, int max)
+void	tiny_sort(t_stack *stack_a, t_stack *stack_b)
 {
-	t_list	*current;
-	int		r_moves;
-	int		rr_moves;
-	int		r_moves_locked;
-
-	current = stack->head;
-	if (!current || current->content <= min || current->content >= max)
-		return (0);
-	r_moves = 0;
-	rr_moves = stack_size(stack);
-	r_moves_locked = 0;
-	while (current->next)
+	if (is_sorted(stack_a))
+		return ;
+	while (stack_size(stack_a) > 3)
 	{
-		if (current->content <= min || current->content >= max)
-			r_moves_locked = 1 ;
-		if (!r_moves_locked)
-			r_moves++;
-		rr_moves--;
-		current = current->next;
-	}
-	if (r_moves <= rr_moves)
-		return (r_moves);
-	else
-		return (-rr_moves);
-}
-
-// static int	stack_min(t_stack *stack)
-// {
-// 	t_list	*current;
-// 	int		min;
-
-// 	min = 2147483647;
-// 	current = stack->head;
-// 	while (current)
-// 	{
-// 		if (current->content < min)
-// 			min = current->content;
-// 		current = current->next;
-// 	}
-// 	return (min);
-// }
-
-// static int	stack_max(t_stack *stack)
-// {
-// 	t_list	*current;
-// 	int		max;
-
-// 	max = -2147483648;
-// 	current = stack->head;
-// 	while (current)
-// 	{
-// 		if (current->content > max)
-// 			max = current->content;
-// 		current = current->next;
-// 	}
-// 	return (max);
-// }
-
-int	is_sorted(t_stack *stack, int ascending)
-{
-	t_list	*current;
-
-	current = stack->head;
-	while (current && current->next)
-	{
-		if (current->content > current->next->content && !ascending)
-			current = current->next;
-		else if (current->content < current->next->content)
-			current = current->next;
-		else
-			return (0);
-	}
-	return (1);
-}
-
-void	finalize_sort(t_stack *stack_a, t_stack *stack_b)
-{
-	while (!is_sorted(stack_b, 0) || stack_b->head)
-	{
-		if (stack_is_limit(stack_b) < 0)
-		{
-			pa(stack_a, stack_b);
+		if (get_closest_pos(stack_a, stack_min(stack_a)) > 0)
 			ra(stack_a);
-		}
-		else if (stack_is_limit(stack_b) > 0)
-			pa(stack_a, stack_b);
-		else if (stack_b->head->content > stack_b->head->next->content)
-		{
-			sb(stack_b);
-			rrb(stack_b);
-		}
-		else
-			rb(stack_b);
-	}
-	while (!is_sorted(stack_a, 1))
-	{
-		if (stack_a->head->content < get_median(stack_a))
+		else if (get_closest_pos(stack_a, stack_min(stack_a)) < 0)
 			rra(stack_a);
 		else
-			ra(stack_a);
+			pb(stack_a, stack_b);
 	}
+	sort_3(stack_a);
+	while (stack_b->head)
+		pa(stack_a, stack_b);
 }

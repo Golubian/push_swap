@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:11:22 by gachalif          #+#    #+#             */
-/*   Updated: 2024/03/07 10:05:40 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:02:51 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 
 # include "push_swap_stacks.h"
 
-int		get_at_pos(t_stack *stack, int pos);
-int		get_median(t_stack *stack);
-int		get_pos_from_perc(t_stack *stack, float perc);
-int		stack_contains_fork(t_stack *stack, int min, int max);
-int		get_closest_fork_pos(t_stack *stack, int min, int max);
+void	radix_sort(t_stack	*stack_a, t_stack *stack_b);
+void	tiny_sort( t_stack	*stack_a, t_stack *stack_b);
 
-int		is_sorted(t_stack *stack, int ascending);
+int		is_sorted(t_stack *stack);
+int		is_sorted_rev(t_stack *stack);
 
-void	put_fork(t_stack *stack_a, t_stack *stack_b, float range, int median);
-void	finalize_sort(t_stack *stack_a, t_stack *stack_b);
+int		get_digit_at_pos(int base10, int pos);
+int		get_closest_pos(t_stack *stack, t_list *target);
+int		stack_contains_bit_unset(t_stack *stack, int pos);
 
 #endif
