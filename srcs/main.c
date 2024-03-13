@@ -35,25 +35,17 @@ int	main(int argc, char **argv)
 	t_stack	*a;
 	t_stack	*b;
 
-	b = malloc(sizeof(t_stack));
 	if (argc <= 1)
-		return (printf("Usage example:\n./push_swap \"9 2 -7 1 23 42\"\n"), 1);
-	else if (argc == 2)
-	{
-		if (!single_input_is_valid(argv[1]))
-			return (printf("ERROR"), 1);
-		a = get_stack_from_input(argv[1]);
-	}
-	else
-	{
-		if (!multi_input_is_valid(argc, argv))
-			return (printf("ERROR"), 1);
-		a = get_stack_from_inputs(argc, argv);
-	}
+		return (printf("Usage example:\n./push_swap 9 2 -7 1 23 [...]\n"), 1);
+	if (!multi_input_is_valid(argc, argv))
+		return (printf("Error\n"), 1);
+	a = get_stack_from_inputs(argc, argv);
+	if (!a)
+		return (1);
+	b = malloc(sizeof(t_stack));
 	if (!is_sorted(a) && stack_size(a) > 15)
 		radix_sort(a, b);
 	else if (!is_sorted(a))
 		tiny_sort(a, b);
-	stack_free(a);
-	stack_free(b);
+	return (stack_free(a), stack_free(b), 0);
 }

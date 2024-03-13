@@ -22,7 +22,7 @@ static int	ft_strlen(const char	*str)
 	return (i);
 }
 
-static char	*ft_strdup_until(const char *src, char c)
+static char	*ft_strdup_until(char *src, char c)
 {
 	char	*new;
 	int		i;
@@ -73,7 +73,7 @@ static int	ft_count_words(const char *str, char separator)
 	return (count);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**re;
 	int		i;

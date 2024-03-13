@@ -70,7 +70,7 @@ define HEADER
            ███████           
 \033[0;1m
 Generate solution:
-        ./push_swap int_1 int_2 [...]\033[0;0m
+        ./push_swap "int_1" "int_2" [...]\033[0;0m
 endef
 export HEADER
 
@@ -89,7 +89,7 @@ $(NAME):	$(OBJS)
 			@ $(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
 			@ echo $(UP)$(CLR)✅ $(GREEN)$@ built!$(DEFAULT)
 
-debug:	CFLAGS += -g
+debug:	CFLAGS += -g -fsanitize=leak -llsan
 debug:	clean all
 		@	echo $(UP)$(CLR)🐛 $(GREEN)$(NAME) built for debug!$(DEFAULT)
 

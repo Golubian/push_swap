@@ -56,8 +56,8 @@ int	single_input_is_valid(char *input)
 	if (!split_input)
 		return (0);
 	if (!check_valid_ints(split_input))
-		return (0);
-	return (check_duplicates(split_input) == 0);
+		return (free(split_input), 0);
+	return (free(split_input), check_duplicates(split_input) == 0);
 }
 
 int	multi_input_is_valid(int elems, char **input)

@@ -12,19 +12,6 @@
 
 #include "push_swap.h"
 
-static void	free_stack(t_stack *stack)
-{
-	t_list	*temp;
-
-	while (stack->head)
-	{
-		temp = stack->head->next;
-		free(stack->head);
-		stack->head = temp;
-	}
-	free(stack);
-}
-
 static int	get_pos_in_stack(char **str_elems, int index)
 {
 	int	count;
@@ -59,11 +46,11 @@ t_stack	*get_stack_from_input(char *input)
 	{
 		new_elem = stack_new(get_pos_in_stack(str_elems, i));
 		if (!new_elem)
-			return (free_stack(new_stack), NULL);
+			return (free(str_elems), stack_free(new_stack), NULL);
 		stack_addback(new_stack, new_elem);
 		i++;
 	}
-	return (new_stack);
+	return (free(str_elems), new_stack);
 }
 
 t_stack	*get_stack_from_inputs(int elems, char **argv)
@@ -80,7 +67,7 @@ t_stack	*get_stack_from_inputs(int elems, char **argv)
 	{
 		new_elem = stack_new(get_pos_in_stack(argv + 1, i));
 		if (!new_elem)
-			return (free_stack(new_stack), NULL);
+			return (stack_free(new_stack), NULL);
 		stack_addback(new_stack, new_elem);
 		i++;
 	}

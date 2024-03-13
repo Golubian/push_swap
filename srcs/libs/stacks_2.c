@@ -65,7 +65,7 @@ void	stack_free(t_stack *stack)
 	t_list	*to_free;
 
 	current = stack->head;
-	while (current && current->next)
+	while (current)
 	{
 		to_free = current;
 		current = current->next;
